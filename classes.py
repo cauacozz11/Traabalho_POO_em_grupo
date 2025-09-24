@@ -34,6 +34,45 @@ class Pessoa:
         self.__nome = nome
         self.__cpf = cpf
         self.__telefone = telefone  
+    
+    # --CPF ---
+    @property
+    def nome(self):
+     return self.__nome 
+ 
+    @nome.setter
+    def nome(self, valor):
+      if not isinstance(valor,str):
+          print("Nome deve ser uma string")
+      if any(char.isdigit() for char in valor):
+          print("Nome não pode conter números")
+      self.nome = valor
+      
+      
+    # --Telefone -- 
+    @property
+    def cpf(self):
+        return self.__cpf
+    
+    @cpf.setter
+    def cpf(self, valor):
+        if not isinstance(valor, (int, str)):  # aceita int ou string
+            print("CPF deve ser int ou string numérica")
+        self.__cpf = valor
+        
+        
+     # --- TELEFONE ---
+    @property
+    def telefone(self):
+        return self.__telefone
+
+    @telefone.setter
+    def telefone(self, valor):
+        if not isinstance(valor, (int, str)):  # aceita int ou string
+            print("Telefone deve ser int ou string numérica")
+        self.__telefone = valor    
+    
+        
         
     
     def mostrar_informacoes(self):
