@@ -119,51 +119,47 @@ class Pessoa:
     def __init__(self, nome, cpf, telefone):
         self.__nome = nome
         self.__cpf = cpf
-        self.__telefone = telefone  
-    
-    # --CPF ---
+        self.__telefone = telefone
+
+    # --- NOME ---
     @property
     def nome(self):
-     return self.__nome 
- 
+        return self.__nome
+
     @nome.setter
     def nome(self, valor):
-      if not isinstance(valor,str):
-          print("Nome deve ser uma string")
-      if any(char.isdigit() for char in valor):
-          print("Nome não pode conter números")
-      self.nome = valor
-      
-      
-    # --Telefone -- 
+        if isinstance(valor, str) and valor.strip():
+            self.__nome = valor
+        else:
+            print("Nome deve ser uma string não vazia")
+
+    # --- CPF ---
     @property
     def cpf(self):
         return self.__cpf
-    
+
     @cpf.setter
     def cpf(self, valor):
-        if not isinstance(valor, (int, str)):  # aceita int ou string
-            print("CPF deve ser int ou string numérica")
-        self.__cpf = valor
-        
-        
-     # --- TELEFONE ---
+        if isinstance(valor, int) or (isinstance(valor, str) and valor.isdigit()):
+            self.__cpf = valor
+        else:
+            print("CPF deve conter apenas números")
+
+    # --- TELEFONE ---
     @property
     def telefone(self):
         return self.__telefone
 
     @telefone.setter
     def telefone(self, valor):
-        if not isinstance(valor, (int, str)):  # aceita int ou string
-            print("Telefone deve ser int ou string numérica")
-        self.__telefone = valor    
-    
-        
-        
-    
+        if isinstance(valor, int) or (isinstance(valor, str) and valor.isdigit()):
+            self.__telefone = valor
+        else:
+            print("Telefone deve conter apenas números")
+
     def mostrar_informacoes(self):
-        return f"Nome: {self.__nome} | CPF: {self.__cpf} | Telefone: {self.__telefone}"      
-    
+        return f"Nome: {self.__nome} | CPF: {self.__cpf} | Telefone: {self.__telefone}"
+
     
     
 class Bibliotecario(Pessoa):
