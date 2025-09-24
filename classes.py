@@ -5,6 +5,66 @@ class ItensBiblioteca:
         self.__editora = editora
         self.__preco = preco
         
+        
+    @property
+    def categoria(self):
+        return self.__categoria
+        
+    @categoria.setter
+    def categoria(self, valor):
+        if isinstance(valor, str) and valor.strip():
+            self.__categoria = valor  
+        else:
+            print('Categoria deve ser uma string não vazia') 
+        
+    
+    @property
+    def titulo(self):
+        return self.__titulo
+    
+    @titulo.setter
+    def titulo(self, valor):
+        if isinstance(valor, str) and valor.strip():
+            self.__titulo = valor
+        else:
+            print('Titulo deve ser uma string não vazia')
+        
+    @property
+    def editora(self):
+        return self.__editora
+    
+    @editora.setter
+    def titulo(self, valor):
+        if isinstance(valor, str) and valor.strip():
+            self.__titulo = valor
+        else:
+            print('Título deve ser uma string não vazia')
+        
+    @property
+    def editora(self):
+        return self.__editora
+    
+    @editora.setter
+    def editora(self, valor):
+        if isinstance(valor, str) and valor.strip():
+            self.__editora = valor 
+        else:
+            print('Editora não pode ser uma string não vazia') 
+            
+    @property
+    def preco(self):
+        return self.__preco
+    
+    @preco.setter
+    def preco(self, valor):
+        if isinstance(valor, int, float) and valor > 0:
+            self.__preco = valor
+        else:
+            print('Preço deve ser um inteiro não negativo')    
+    
+    
+                                                   
+        
     def mostrar_item(self):
         return f"Categoria: {self.__categoria} | Título: {self.__titulo} | Editora: {self.__editora} | Preço: {self.__preco}"    
     
@@ -13,6 +73,17 @@ class Livro(ItensBiblioteca):
     def __init__(self, categoria, titulo, editora, preco, autor ):
         super().__init__(categoria, titulo, editora, preco)
         self.__autor = autor
+        
+    @property
+    def autor(self):
+        return self.__autor
+    
+    @autor.setter
+    def autor(self, valor):
+        if isinstance(valor, str) and valor.strip():
+            self.__autor = valor
+        else:
+            print('Autor deve ser uma string não vazia')     
         
     def mostrar_livro(self):
         return f"{super().mostrar_item()} | Autor: {self.__autor}"
@@ -23,6 +94,21 @@ class Revista(ItensBiblioteca):
     def __init__(self, categoria, titulo, editora, preco, edicao):
         super().__init__(categoria, titulo, editora, preco)
         self.__edicao = edicao
+        
+    @property
+    def edicao(self):
+        return self.__edicao
+    
+    @edicao.setter
+    def edicao(self, valor):
+        if isinstance(valor, int) and valor > 0:
+            self.__edicao = valor
+        else:
+            print('Edição deve ser um inteiro não negativo')    
+    
+    @edicao.setter
+    def edicao(self):
+        return self.__edicao   
         
     def mostrar_revista(self):
         return f"{super().mostrar_item()} | Edição: {self.__edicao}"        
