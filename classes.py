@@ -129,7 +129,6 @@ class Pessoa:
         else:
             print('CPF precisa ser um número inteiro e com 11 caractéres')    
         
-        
     @property
     def telefone(self):
         return self.__telefone
@@ -140,8 +139,6 @@ class Pessoa:
             self.__telefone = valor 
         else:
             print('Telefone deve ser um inteiro e maior que 0')       
-    
-        
     
     def mostrar_informacoes(self):
         return f"Nome: {self.__nome} | CPF: {self.__cpf} | Telefone: {self.__telefone}"      
