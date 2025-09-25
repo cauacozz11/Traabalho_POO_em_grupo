@@ -130,7 +130,6 @@ class Pessoa:
             print('CPF precisa ser um número inteiro e com 11 caractéres')    
         
         
-    
     @property
     def telefone(self):
         return self.__telefone
@@ -143,17 +142,27 @@ class Pessoa:
             print('Telefone deve ser um inteiro e maior que 0')       
     
         
-        
     
     def mostrar_informacoes(self):
         return f"Nome: {self.__nome} | CPF: {self.__cpf} | Telefone: {self.__telefone}"      
-    
     
     
 class Bibliotecario(Pessoa):
     def __init__(self, nome, cpf, telefone, cnpj):
         super().__init__(nome, cpf, telefone)
         self.__cnpj = cnpj
+        
+    @property
+    def cnpj(self):
+        return self.__cnpj  
+    
+    @cnpj.setter
+    def cnpj(self,valor):
+        if isinstance(valor, int) and valor > 0:
+            self.__cnpj = valor
+        else:
+            print("cnpj deve ser um inteiro positivo") 
+        
         
     def mostrar_informacoes_bibliotecario(self):
         print('INFORMÇÕES DO BIBLIOTECÁRIO')
