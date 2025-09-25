@@ -155,7 +155,7 @@ class Bibliotecario(Pessoa):
     
     @cnpj.setter
     def cnpj(self,valor):
-        if isinstance(valor, int) and valor > 0:
+        if isinstance(valor, int) and len(str(valor)) == 14:
             self.__cnpj = valor
         else:
             print("cnpj deve ser um inteiro positivo") 
@@ -200,7 +200,3 @@ class Cliente(Pessoa):
         return f"{super().mostrar_informacoes()} | Cadastro: {self.__id_cliente}"        
     
     
-    
-pessoa1 = Cliente('Cauã', 138468931948, 47999343288, 675)
-
-print(pessoa1.mostrar_informacoes_cliente())    
