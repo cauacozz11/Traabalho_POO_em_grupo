@@ -34,17 +34,6 @@ class ItensBiblioteca:
         return self.__editora
     
     @editora.setter
-    def titulo(self, valor):
-        if isinstance(valor, str) and valor.strip():
-            self.__titulo = valor
-        else:
-            print('Título deve ser uma string não vazia')
-        
-    @property
-    def editora(self):
-        return self.__editora
-    
-    @editora.setter
     def editora(self, valor):
         if isinstance(valor, str) and valor.strip():
             self.__editora = valor 
@@ -57,10 +46,10 @@ class ItensBiblioteca:
     
     @preco.setter
     def preco(self, valor):
-        if isinstance(valor, int, float) and valor > 0:
+        if isinstance(valor, (int, float)) and valor > 0:
             self.__preco = valor
         else:
-            print('Preço deve ser um inteiro não negativo')    
+            print('Preço deve ser um inteiro ou float não negativo')    
     
     
                                                    
@@ -105,10 +94,6 @@ class Revista(ItensBiblioteca):
         else:
             print('Edição deve ser um inteiro não negativo')    
     
-    @edicao.setter
-    def edicao(self):
-        return self.__edicao   
-        
     def mostrar_revista(self):
         return f"{super().mostrar_item()} | Edição: {self.__edicao}"        
             
@@ -120,12 +105,11 @@ class Pessoa:
         self.__cpf = cpf
         self.__telefone = telefone
 
-    # --- NOME -----------------------------------
+    # --- NOME ---
     @property
     def nome(self):
         return self.__nome
-    
-    #Valida para não passar valores vazio 
+
     @nome.setter
     def nome(self, valor):
         if isinstance(valor, str) and valor.strip():
@@ -133,33 +117,37 @@ class Pessoa:
         else:
             print("Nome deve ser uma string não vazia")
 
-    # --- CPF -----------------------------
+    # --- CPF ---
     @property
     def cpf(self):
         return self.__cpf
-
+    
     @cpf.setter
     def cpf(self, valor):
-        if isinstance(valor, int) or (isinstance(valor, str) and valor.isdigit()):
+        if isinstance(valor, int) and len(str(valor)) == 11:
             self.__cpf = valor
         else:
-            print("CPF deve conter apenas números")
-
-    # --- TELEFONE ---
+            print('CPF precisa ser um número inteiro e com 11 caractéres')    
+        
+        
+    
     @property
     def telefone(self):
         return self.__telefone
-
+    
     @telefone.setter
     def telefone(self, valor):
-        if isinstance(valor, int) or (isinstance(valor, str) and valor.isdigit()):
-            self.__telefone = valor
+        if isinstance(valor, int ) and valor > 0 and valor:
+            self.__telefone = valor 
         else:
-            print("Telefone deve conter apenas números")
-
+            print('Telefone deve ser um inteiro e maior que 0')       
+    
+        
+        
+    
     def mostrar_informacoes(self):
-        return f"Nome: {self.__nome} | CPF: {self.__cpf} | Telefone: {self.__telefone}"
-
+        return f"Nome: {self.__nome} | CPF: {self.__cpf} | Telefone: {self.__telefone}"      
+    
     
     
 class Bibliotecario(Pessoa):
@@ -167,17 +155,6 @@ class Bibliotecario(Pessoa):
         super().__init__(nome, cpf, telefone)
         self.__cnpj = cnpj
         
-    @property
-    def cnpj(self):
-        return self.__cnpj
-    
-    @cnpj.setter
-    def cnpj(self,valor):
-        if isinstance(valor, int) or (isinstance(valor, str) and valor.isdigit()):
-            self.__cnpj = valor
-        else:
-            print("CNPJ deve conter apenas números")
-            
     def mostrar_informacoes_bibliotecario(self):
         print('INFORMÇÕES DO BIBLIOTECÁRIO')
         print()
@@ -199,6 +176,17 @@ class Cliente(Pessoa):
             self.__id_cliente = valor
         else:
             print("id_cliente deve ser um inteiro positivo")
+        
+    @property 
+    def id_cliente(self):
+        return self.__id_cliente
+    
+    @id_cliente.setter
+    def id_cliente(self, valor):
+        if isinstance(valor, int) and len(str(valor)) == 6:
+            self.__id_cliente = valor
+        else:
+            print('ID do cliente precisa ser um número inteiro e com 6 caractéres')        
         
     def mostrar_informacoes_cliente(self):
         print('INFORMAÇÕES DO CLIENTE')
