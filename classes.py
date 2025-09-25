@@ -136,7 +136,7 @@ class Pessoa:
     # --- CPF -----------------------------
     @property
     def cpf(self):
-        return self.__cpfs
+        return self.__cpf
 
     @cpf.setter
     def cpf(self, valor):
@@ -167,6 +167,17 @@ class Bibliotecario(Pessoa):
         super().__init__(nome, cpf, telefone)
         self.__cnpj = cnpj
         
+    @property
+    def cnpj(self):
+        return self.__cnpj
+    
+    @cnpj.setter
+    def cnpj(self,valor):
+        if isinstance(valor, int) or (isinstance(valor, str) and valor.isdigit()):
+            self.__cnpj = valor
+        else:
+            print("CNPJ deve conter apenas números")
+            
     def mostrar_informacoes_bibliotecario(self):
         print('INFORMÇÕES DO BIBLIOTECÁRIO')
         print()
@@ -177,6 +188,17 @@ class Cliente(Pessoa):
     def __init__(self, nome, cpf, telefone, id_cliente):
         super().__init__(nome, cpf, telefone)
         self.__id_cliente = id_cliente
+    
+    @property
+    def id_cliente(self):
+        return self.__id_cliente
+    
+    @id_cliente.setter
+    def id_cliente(self,valor):
+        if isinstance(valor, int) and valor > 0:
+            self.__id_cliente = valor
+        else:
+            print("id_cliente deve ser um inteiro positivo")
         
     def mostrar_informacoes_cliente(self):
         print('INFORMAÇÕES DO CLIENTE')
