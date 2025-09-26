@@ -124,7 +124,7 @@ class Pessoa:
     
     @cpf.setter
     def cpf(self, valor):
-        if isinstance(valor, int) and len(str(valor)) == 11:
+        if isinstance(valor, str) and len(valor) == 11:
             self.__cpf = valor
         else:
             print('CPF precisa ser um número inteiro e com 11 caractéres')    
@@ -135,7 +135,7 @@ class Pessoa:
     
     @telefone.setter
     def telefone(self, valor):
-        if isinstance(valor, int ) and valor > 0 and valor:
+        if isinstance(valor, str) and len(valor) > 0:
             self.__telefone = valor 
         else:
             print('Telefone deve ser um inteiro e maior que 0')       
@@ -155,7 +155,7 @@ class Bibliotecario(Pessoa):
     
     @cnpj.setter
     def cnpj(self,valor):
-        if isinstance(valor, int) and len(str(valor)) == 14:
+        if isinstance(valor, str) and len(valor) == 14:
             self.__cnpj = valor
         else:
             print("cnpj deve ser um inteiro positivo") 
@@ -183,5 +183,3 @@ class Cliente(Pessoa):
         
     def mostrar_informacoes_cliente(self):
         return f"INFORMAÇÕES CLIENTE\n{super().mostrar_informacoes()} | Cadastro: {self.__id_cliente}"        
-    
-    
