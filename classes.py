@@ -162,9 +162,7 @@ class Bibliotecario(Pessoa):
         
         
     def mostrar_informacoes_bibliotecario(self):
-        print('INFORMÇÕES DO BIBLIOTECÁRIO')
-        print()
-        return f"{super().mostrar_informacoes()} | CNPJ:{self.__cnpj}"
+        return f"INFORMAÇÕES BIBLIOTECÁRIO\n{super().mostrar_informacoes()} | CNPJ:{self.__cnpj}"
     
 
 class Cliente(Pessoa):
@@ -183,20 +181,7 @@ class Cliente(Pessoa):
         else:
             print("id_cliente deve ser um inteiro positivo")
         
-    @property 
-    def id_cliente(self):
-        return self.__id_cliente
-    
-    @id_cliente.setter
-    def id_cliente(self, valor):
-        if isinstance(valor, int) and len(str(valor)) == 6:
-            self.__id_cliente = valor
-        else:
-            print('ID do cliente precisa ser um número inteiro e com 6 caractéres')        
-        
     def mostrar_informacoes_cliente(self):
-        print('INFORMAÇÕES DO CLIENTE')
-        print()
-        return f"{super().mostrar_informacoes()} | Cadastro: {self.__id_cliente}"        
+        return f"INFORMAÇÕES CLIENTE\n{super().mostrar_informacoes()} | Cadastro: {self.__id_cliente}"        
     
     
