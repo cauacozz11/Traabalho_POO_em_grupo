@@ -1,9 +1,9 @@
 class ItensBiblioteca:
     def __init__(self, categoria, titulo, editora, preco):
-        self.categoria = categoria
-        self.titulo = titulo
-        self.editora = editora
-        self.preco = preco
+        self.__categoria = categoria
+        self.__titulo = titulo
+        self.__editora = editora
+        self.__preco = preco
         
     @property
     def categoria(self):
@@ -56,7 +56,7 @@ class ItensBiblioteca:
 class Livro(ItensBiblioteca):
     def __init__(self, categoria, titulo, editora, preco, autor):
         super().__init__(categoria, titulo, editora, preco)
-        self.autor = autor
+        self.__autor = autor
         
     @property
     def autor(self):
@@ -76,7 +76,7 @@ class Livro(ItensBiblioteca):
 class Revista(ItensBiblioteca):
     def __init__(self, categoria, titulo, editora, preco, edicao):
         super().__init__(categoria, titulo, editora, preco)
-        self.edicao = edicao
+        self.__edicao = edicao
         
     @property
     def edicao(self):
@@ -95,9 +95,9 @@ class Revista(ItensBiblioteca):
       
 class Pessoa:
     def __init__(self, nome, cpf, telefone):
-        self.nome = nome
-        self.cpf = cpf
-        self.telefone = telefone
+        self.__nome = nome
+        self.__cpf = cpf
+        self.__telefone = telefone
 
     # --- NOME ---
     @property
@@ -141,7 +141,7 @@ class Pessoa:
 class Bibliotecario(Pessoa):
     def __init__(self, nome, cpf, telefone, cnpj):
         super().__init__(nome, cpf, telefone)
-        self.cnpj = cnpj
+        self.__cnpj = cnpj
         
     @property
     def cnpj(self):
@@ -161,7 +161,7 @@ class Bibliotecario(Pessoa):
 class Cliente(Pessoa):
     def __init__(self, nome, cpf, telefone, id_cliente):
         super().__init__(nome, cpf, telefone)
-        self.id_cliente = id_cliente
+        self.__id_cliente = id_cliente
     
     @property
     def id_cliente(self):
