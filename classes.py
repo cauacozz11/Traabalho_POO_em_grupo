@@ -4,6 +4,7 @@ class ItensBiblioteca:
         self.__titulo = titulo
         self.__editora = editora
         self.__preco = preco
+        self.__disponivel = True
         
     @property
     def categoria(self):
@@ -49,8 +50,23 @@ class ItensBiblioteca:
         else:
             raise ValueError("Preço deve ser um número positivo (int ou float)")    
     
+    @property
+    def disponivel(self):
+        return self.__disponivel
+
+    def status_emprestar(self):
+        if self.__disponivel:
+            self.__disponivel = False
+            return True
+        return False
+
+    def status_devolver(self):
+        self.__disponivel = True
+        
+
     def mostrar_item(self):
-        return f"Categoria: {self.__categoria} | Título: {self.__titulo} | Editora: {self.__editora} | Preço: {self.__preco}"    
+        status = 'Disponível' if self.__disponivel else 'Indisponível'
+        return f"Categoria: {self.__categoria} | Título: {self.__titulo} | Editora: {self.__editora} | Preço: {self.__preco} | Status: {status}"    
 
 
 class Livro(ItensBiblioteca):
