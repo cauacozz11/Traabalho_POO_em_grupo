@@ -27,10 +27,7 @@ def cadastrar_livro():
             livros.append(novo_livro)
             print("\nLivro cadastrado com sucesso!")
             print(novo_livro.mostrar_informacoes())
-            
-            print("\nLivros cadastrados até agora:")
-            for l in livros:
-                print("-", l.mostrar_informacoes())
+
         except ValueError as e:
             print("Erro ao cadastrar livro:", e)
             continue  # volta para tentar de novo
@@ -65,10 +62,7 @@ def cadastrar_revista():
             revistas.append(nova_revista)
             print("\nRevista cadastrada com sucesso!")
             print(nova_revista.mostrar_informacoes())
-            
-            print("\nRevistas cadastradas até agora:")
-            for r in revistas:
-                print("-", r.mostrar_informacoes())
+        
         except ValueError as e:
             print("Erro ao cadastrar revista:", e)
             continue  # volta para tentar de novo
@@ -99,8 +93,32 @@ def cadastrar_cliente():
         if opc.lower() != 's':
             break
         
-        
+def listar_clientes():
+    print("\n--- Lista de Clientes ---")
+    if not clientes:
+        print("Nenhum cliente cadastrado.")
+    else:
+        for i, c in enumerate(clientes, start=1):
+            print(f"{i}. {c.mostrar_informacoes_cliente()}") 
+    input("\nPressione ENTER para voltar ao menu...")             
+
+def listar_livros():
+    print("\n--- Lista de Livros ---")
+    if not livros:
+        print("Nenhum livro cadastrado.")
+    else:
+        for i, l in enumerate(livros, start=1):
+            print(f"{i}. {l.mostrar_informacoes()}")
+    input("\nPressione ENTER para voltar ao menu...") 
     
+def listar_revistas():
+    print("\n--- Lista de Revistas ---")
+    if not revistas:
+        print("Nenhuma revista cadastrada.")
+    else:
+        for i, r in enumerate(revistas, start=1):
+            print(f"{i}. {r.mostrar_informacoes()}")       
+    input("\nPressione ENTER para voltar ao menu...") 
 
 # ===== Menu interativo =====
 def menu_interativo():
@@ -146,11 +164,11 @@ Digite sua opção: """))
         elif menu == 7:
             pass  # devolver revistas
         elif menu == 8:
-            pass
+            listar_livros()
         elif menu == 9:
-            pass
+            listar_revistas()
         elif menu == 10:
-            pass
+            listar_clientes()
         else:
             print("Opção inválida! Tente novamente.")
 
