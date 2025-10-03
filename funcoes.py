@@ -13,17 +13,10 @@ def cadastrar_livro():
         categoria = input("Categoria: ")
         titulo = input("Título: ")
         editora = input("Editora: ")
-        
-        try:
-            preco = float(input("Preço: "))
-        except ValueError:
-            print("Preço deve ser numérico (use ponto para decimais).")
-            continue  # volta para o início do while
-        
         autor = input("Autor: ")
         
         try:
-            novo_livro = Livro(categoria, titulo, editora, preco, autor)
+            novo_livro = Livro(categoria, titulo, editora, autor)
             livros.append(novo_livro)
             print("\nLivro cadastrado com sucesso!")
             print(novo_livro.mostrar_informacoes())
@@ -44,13 +37,7 @@ def cadastrar_revista():
         categoria = input("Categoria: ")
         titulo = input("Título: ")
         editora = input("Editora: ")
-        
-        try:
-            preco = float(input("Preço: "))
-        except ValueError:
-            print("Preço deve ser numérico (use ponto para decimais).")
-            continue  # volta para o início do while
-
+    
         try:
             edicao = int(input("Edição (número inteiro positivo): "))
         except ValueError:
@@ -58,7 +45,7 @@ def cadastrar_revista():
             continue  # volta para o início do while
 
         try:
-            nova_revista = Revista(categoria, titulo, editora, preco, edicao)
+            nova_revista = Revista(categoria, titulo, editora, edicao)
             revistas.append(nova_revista)
             print("\nRevista cadastrada com sucesso!")
             print(nova_revista.mostrar_informacoes())
