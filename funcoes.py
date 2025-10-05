@@ -362,11 +362,11 @@ Digite sua opção: """))
         elif menu == 3:
             cadastrar_cliente()
         elif menu == 4:
-            alugar_livro()  # alugar livros
+            alugar_livro() 
         elif menu == 5:
             alugar_revista()
         elif menu == 6:
-            devolver_livro()  # devolver livros
+            devolver_livro()  
         elif menu == 7:
             devolver_revista()
         elif menu == 8:
