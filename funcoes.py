@@ -326,8 +326,6 @@ def devolver_revista():
 
     input("\nPressione ENTER para voltar ao menu.")
     
-
-
 # ===== Menu interativo =====
 def menu_interativo():
     while True:
