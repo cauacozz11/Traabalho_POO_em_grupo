@@ -1,70 +1,96 @@
 
-import random
-from classes import Livro, Revista, Bibliotecario, Cliente
+# IMPORTAÇÕES
+import random                              # Usado para gerar números aleatórios
+from ClassesIntens import Livro, Revista   # Importa classes de itens da biblioteca
+from ClassesPessoa import Bibliotecario, Cliente  # Importa classes de pessoas
 
+
+# LISTAS GLOBAIS
+# Armazenam os dados cadastrados durante o uso do sistema
 clientes = []
 livros = []
 revistas = []
 
-# ===== Função para cadastrar livros =====
+
+# DADOS PRÉ-CADASTRADOS (para testes)
+# Objetivo: deixar o sistema pronto para testes sem precisar digitar tudo
+clientes.append(Cliente("Eduardo Costa", "12345678901", "47999999999", 1))
+clientes.append(Cliente("Maria Silva", "98765432100", "47988888888", 2))
+clientes.append(Cliente("João Pereira", "11122233344", "47977777777", 3))
+
+livros.append(Livro("Aventura", "O Senhor dos Anéis", "Martins Fontes", "J.R.R. Tolkien"))
+livros.append(Livro("Terror", "It: A Coisa", "Suma", "Stephen King"))
+livros.append(Livro("Fantasia", "Harry Potter e a Pedra Filosofal", "Rocco", "J.K. Rowling"))
+
+revistas.append(Revista("Tecnologia", "InfoTech", "Abril", 12))
+revistas.append(Revista("Ciência", "Superinteressante", "Abril", 331))
+revistas.append(Revista("Esportes", "Placar", "Abril", 45))
+
+
+# FUNÇÕES DE CADASTRO
 def cadastrar_livro():
+    """Permite o cadastro manual de um novo livro."""
     while True:
         print("\n--- Cadastro de Livro ---")
         categoria = input("Categoria: ")
         titulo = input("Título: ")
         editora = input("Editora: ")
         autor = input("Autor: ")
-        
+
         try:
             novo_livro = Livro(categoria, titulo, editora, autor)
             livros.append(novo_livro)
             print("\nLivro cadastrado com sucesso!")
             print(novo_livro.mostrar_informacoes())
 
-        except ValueError as e:
+        except ValueError as e:   # Captura erros de validação (ex: campo vazio)
             print("Erro ao cadastrar livro:", e)
-            continue  # volta para tentar de novo
+            continue
 
         opc = input("\nDeseja cadastrar outro livro? (s/n): ")
-        if opc.lower() != 's':
+        if opc.lower() != 's':    # lower() converte para minúsculo
             break
-        
-        
-# ===== Função para cadastrar Revista =====        
+
+
 def cadastrar_revista():
+    """Permite cadastrar uma nova revista."""
     while True:
         print("\n--- Cadastro de Revista ---")
         categoria = input("Categoria: ")
         titulo = input("Título: ")
         editora = input("Editora: ")
-    
+
+        # Valida a entrada da edição com try/except
         try:
             edicao = int(input("Edição (número inteiro positivo): "))
         except ValueError:
             print("Edição deve ser um número inteiro.")
-            continue  # volta para o início do while
+            continue
 
         try:
             nova_revista = Revista(categoria, titulo, editora, edicao)
             revistas.append(nova_revista)
             print("\nRevista cadastrada com sucesso!")
             print(nova_revista.mostrar_informacoes())
-        
+
         except ValueError as e:
             print("Erro ao cadastrar revista:", e)
-            continue  # volta para tentar de novo
+            continue
 
         opc = input("\nDeseja cadastrar outra revista? (s/n): ")
         if opc.lower() != 's':
             break
 
-# ===== Função para cadastrar clientes =====
+
 def cadastrar_cliente():
+    """Permite cadastrar um novo cliente no sistema."""
     while True:
         print("\n--- Cadastro de Cliente ---")
         nome = input("Nome: ")
         cpf = input("CPF (11 dígitos): ")
         telefone = input("Telefone (11 dígitos, DDD + número): ")
+
+        # random.randint() → gera um ID aleatório entre 1 e 9999
         id_cliente = random.randint(1, 9999)
 
         try:
@@ -79,257 +105,222 @@ def cadastrar_cliente():
         opc = input("\nDeseja cadastrar outro cliente? (s/n): ")
         if opc.lower() != 's':
             break
-        
+
+
+# FUNÇÕES DE LISTAGEM
 def listar_clientes():
-    print("\n--- Lista de Clientes ---")
-    if not clientes:
+    """Mostra todos os clientes cadastrados."""
+    print("\n" + "=" * 50)
+    print("LISTA DE CLIENTES".center(50))
+    print("=" * 50)
+
+    if not clientes:  # Verifica se a lista está vazia
         print("Nenhum cliente cadastrado.")
     else:
+        # enumerate() gera índice automático (1, 2, 3...)
         for i, c in enumerate(clientes, start=1):
-            print(f"{i}. {c.mostrar_informacoes_cliente()}") 
-    input("\nPressione ENTER para voltar ao menu...")             
+            print(f"\n[{i}] -------------------------------")
+            print(c.mostrar_informacoes_cliente())
+            print("-" * 50)
+
+    input("\nPressione ENTER para voltar ao menu...")
+
 
 def listar_livros():
-    print("\n--- Lista de Livros ---")
+    """Mostra todos os livros cadastrados e seus status."""
+    print("\n" + "=" * 50)
+    print("LISTA DE LIVROS".center(50))
+    print("=" * 50)
+
     if not livros:
         print("Nenhum livro cadastrado.")
     else:
         for i, l in enumerate(livros, start=1):
-            print(f"{i}. {l.mostrar_informacoes()}")
-    input("\nPressione ENTER para voltar ao menu...") 
-    
+            print(f"\n[{i}] -------------------------------")
+            print(l.mostrar_informacoes())
+            print("-" * 50)
+    input("\nPressione ENTER para voltar ao menu...")
+
+
 def listar_revistas():
-    print("\n--- Lista de Revistas ---")
+    """Mostra todas as revistas cadastradas e seus status."""
+    print("\n" + "=" * 50)
+    print("LISTA DE REVISTAS".center(50))
+    print("=" * 50)
+
     if not revistas:
         print("Nenhuma revista cadastrada.")
     else:
         for i, r in enumerate(revistas, start=1):
-            print(f"{i}. {r.mostrar_informacoes()}")       
-    input("\nPressione ENTER para voltar ao menu...") 
+            print(f"\n[{i}] -------------------------------")
+            print(r.mostrar_informacoes())
+            print("-" * 50)
+    input("\nPressione ENTER para voltar ao menu...")
 
+
+# FUNÇÃO - ALUGAR LIVRO
 def alugar_livro():
-    print('\n--- Aluguel de Livro ---')
+    """Permite escolher cliente e livro para realizar o aluguel."""
+    print("\n--- ALUGAR LIVRO ---")
 
-    if not clientes:
-        print('\nERRO: Nenhum cliente cadastrado no sistema. ')
-        print('Por favor, cadastre um cliente para realizar um aluguel.')
-        input('Pressione ENTER para voltar ao menu.')
+    # Mostra lista de clientes
+    for i, c in enumerate(clientes, start=1):
+        print(f"{i}. {c.nome}")
+
+    try:
+        indice_cliente = int(input("\nEscolha o número do cliente: ")) - 1
+        cliente = clientes[indice_cliente]
+    except (ValueError, IndexError):
+        # ValueError → digitou letra / símbolo
+        # IndexError → número fora do intervalo da lista
+        print("Opção inválida.")
         return
-            
-    nome_cliente = input('Digite o nome completo do cliente: ').strip()
-    cliente_encontrado = None
-    for cliente in clientes:
-        if cliente.nome.lower() == nome_cliente.lower():
-            cliente_encontrado = cliente
-            break
-    if not cliente_encontrado:
-        print(f'\nERRO: Cliente com o nome "{nome_cliente}" não foi encontrado.')
-        input('Pressione ENTER para voltar ao menu...')
+
+    # Mostra lista de livros
+    print("\nLivros disponíveis:")
+    for i, l in enumerate(livros, start=1):
+        status = "Disponível" if l.disponivel else "Indisponível"
+        print(f"{i}. {l.titulo} - {status}")
+
+    try:
+        indice_livro = int(input("\nEscolha o número do livro: ")) - 1
+        livro = livros[indice_livro]
+    except (ValueError, IndexError):
+        print("Opção inválida.")
         return
-        
-    livro_encontrado = None
-    while True:
-        titulo_livro = input(f'Digite o título do livro que {cliente_encontrado.nome} deseja alugar: ')
-        for livro in livros:
-            if livro.titulo.lower() == titulo_livro.lower():
-                livro_encontrado = livro
-                break
-        if livro_encontrado:
-            break
-        else:
-            print(f'\nERRO: Livro com o título {titulo_livro} não foi encontrado.')
 
-            tentar_novamente = input('Deseja tentar de novo? [S/N]: ')
-            if tentar_novamente.lower()[0] != 's':
-                print('Busca cancelada. Voltando ao menu.')
-                return
-    if livro_encontrado.status_emprestar():
-        cliente_encontrado.alugar_item(livro_encontrado)
+    if not livro.disponivel:
+        print("\nEsse livro está indisponível no momento.")
+        return
 
-        print('\n========================================')
-        print(" Aluguel realizado com sucesso!")
-        print(f'  Cliente: {cliente_encontrado.nome}')
-        print(f'  Livro: {livro_encontrado.titulo}')
-        print('========================================')
-    else:
-        print(f'\nERRO: O livro {livro_encontrado.titulo} já está alugado.')
+    # Marca o livro como emprestado e adiciona ao cliente
+    livro.status_emprestar()
+    cliente.alugar_item(livro)
 
-    input('Pressione ENTER para retornar ao menu...')
+    print(f"\nAluguel realizado com sucesso!")
+    print(f"Cliente: {cliente.nome}")
+    print(f"Livro: {livro.titulo}")
 
+
+# FUNÇÃO - DEVOLVER LIVRO
 def devolver_livro():
-    print('\n     Devolução de Livro')
+    """Permite devolver um livro alugado."""
+    print("\n--- DEVOLVER LIVRO ---")
 
-    if not clientes:
-        print('\nERRO: Nenhum cliente cadastrado no sistema.')
-        input('Pressione ENTER para voltar ao menu...')
-        return
-    
-    nome_cliente = input('Digite o nome completo do cliente que está devolvendo o livro: ').strip()
-    cliente_encontrado = None
-    for cliente in clientes:
-        if cliente.nome.lower() == nome_cliente.lower():
-            cliente_encontrado = cliente
-            break
-    if not cliente_encontrado:
-        print(f'\nERRO: Cliente com o nome {nome_cliente} não foi encontrado.')
-        input('Pressione ENTER para voltar ao menu...')
+    # Exibe lista de clientes
+    for i, c in enumerate(clientes, start=1):
+        print(f"{i}. {c.nome}")
+
+    try:
+        indice_cliente = int(input("\nEscolha o número do cliente: ")) - 1
+        cliente = clientes[indice_cliente]
+    except (ValueError, IndexError):
+        print("Opção inválida.")
         return
 
-    if not cliente_encontrado._Cliente__itens_alugados:
-        print(f'\nAVISO: {cliente_encontrado.nome} não possui nenhum item alugado no momento.')
-        input('Pressione ENTER para voltar ao menu...')  
+    # Mostra os itens alugados pelo cliente
+    if not cliente._Cliente__itens_alugados:
+        print("Esse cliente não possui livros alugados.")
         return
 
-    print(f'\nItens atualmente alugados por {cliente_encontrado.nome}: ')
-    livros_do_cliente = []
-    for item in cliente_encontrado._Cliente__itens_alugados:
-        if isinstance(item, Livro):
-            print(f'   Título: {item.titulo}')  
-            livros_do_cliente.append(item)
-    if not livros_do_cliente:
-        print(f'\nAVISO: {cliente_encontrado.nome} não possui nenhum livro alugado no momento. ')
-        input('Pressione ENTER para voltar ao menu...')
+    print("\nLivros alugados:")
+    for i, item in enumerate(cliente._Cliente__itens_alugados, start=1):
+        print(f"{i}. {item.titulo}")
+
+    try:
+        indice_item = int(input("\nEscolha o número do livro para devolver: ")) - 1
+        livro = cliente._Cliente__itens_alugados[indice_item]
+    except (ValueError, IndexError):
+        print("Opção inválida.")
         return
 
-    livro_para_devolver = None
-    while True:
-        titulo_devolucao = input('\nDigite o título do livro a ser devolvido ["n" para cancelar]: ').strip()
-        if titulo_devolucao.lower()[0] == 'n':
-            print('Operação cancelada.') 
-            return
-        for livro in livros_do_cliente:
-            if livro.titulo.lower() == titulo_devolucao.lower():
-                livro_para_devolver = livro
-                break
-        if livro_para_devolver:
-            break
-        else:
-            print(f'\nERRO: Título não encontrado na lista de aluguéis de {cliente_encontrado.nome}. Tente novamente.')
+    # Atualiza status e remove da lista do cliente
+    livro.status_devolver()
+    cliente.devolver_item(livro)
 
-    cliente_encontrado.devolver_item(livro_para_devolver)
-    livro_para_devolver.status_devolver()
-    print('\n========================================')
-    print("  Devolução realizada com sucesso!")
-    print(f'  Cliente: {cliente_encontrado.nome}')
-    print(f'  Livro: {livro_para_devolver.titulo}')
-    print('========================================')
-    input('\nPressione ENTER para retornar ao menu...')
-    
-    
-    
+    print(f"\nLivro '{livro.titulo}' devolvido com sucesso por {cliente.nome}.")
+
+
+# FUNÇÕES - REVISTAS (ALUGAR E DEVOLVER)
 def alugar_revista():
-    print("\n--- Aluguel de Revista ---")
+    """Permite alugar uma revista."""
+    print("\n--- ALUGAR REVISTA ---")
 
-    # 1️⃣ Verifica se há clientes cadastrados
-    if not clientes:
-        print("Nenhum cliente cadastrado. Cadastre um cliente antes de alugar uma revista.")
-        input("\nPressione ENTER para voltar ao menu.")
+    for i, c in enumerate(clientes, start=1):
+        print(f"{i}. {c.nome}")
+
+    try:
+        indice_cliente = int(input("\nEscolha o número do cliente: ")) - 1
+        cliente = clientes[indice_cliente]
+    except (ValueError, IndexError):
+        print("Opção inválida.")
         return
 
-    # 2️⃣ Solicita nome do cliente
-    nome_cliente = input("Digite o nome do cliente: ").strip()
-    cliente_encontrado = None
+    print("\nRevistas:")
+    for i, r in enumerate(revistas, start=1):
+        status = "Disponível" if r.disponivel else "Indisponível"
+        print(f"{i}. {r.titulo} - {status}")
 
-    for c in clientes:
-        if c.nome.lower() == nome_cliente.lower():
-            cliente_encontrado = c
-            break
-
-    if not cliente_encontrado:
-        print("Cliente não encontrado. Verifique o nome ou cadastre o cliente.")
-        input("\nPressione ENTER para voltar ao menu.")
+    try:
+        indice_revista = int(input("\nEscolha o número da revista: ")) - 1
+        revista = revistas[indice_revista]
+    except (ValueError, IndexError):
+        print("Opção inválida.")
         return
 
-    # 3️⃣ Solicita título da revista
-    while True:
-        titulo_revista = input("Digite o título da revista que deseja alugar: ").strip()
-        revista_encontrada = None
+    if not revista.disponivel:
+        print("\nEssa revista está indisponível no momento.")
+        return
 
-        for r in revistas:
-            if r.titulo.lower() == titulo_revista.lower():
-                revista_encontrada = r
-                break
+    revista.status_emprestar()
+    cliente.alugar_item(revista)
 
-        if not revista_encontrada:
-            opc = input("Revista não encontrada. Deseja tentar novamente? (s/n): ")
-            if opc.lower() != 's':
-                print("Voltando ao menu...")
-                return
-            continue  # volta e pergunta novamente
-
-        # 4️⃣ Verifica disponibilidade
-        if not revista_encontrada.disponivel:
-            print("Desculpe, essa revista já está alugada.")
-            input("\nPressione ENTER para voltar ao menu.")
-            return
-
-        # 5️⃣ Realiza o aluguel
-        revista_encontrada.status_emprestar()
-
-        print("\n✅ Aluguel realizado com sucesso!")
-        print(f"Cliente: {cliente_encontrado.nome}")
-        print(f"Revista: {revista_encontrada.titulo}")
-
-        input("\nPressione ENTER para voltar ao menu.")
-        break
+    print(f"\nAluguel realizado com sucesso!")
+    print(f"Cliente: {cliente.nome}")
+    print(f"Revista: {revista.titulo}")
 
 
 def devolver_revista():
-    print("\n--- Devolução de Revista ---")
+    """Permite devolver uma revista."""
+    print("\n--- DEVOLVER REVISTA ---")
 
-    # 1️⃣ Verifica se há clientes cadastrados
-    if not clientes:
-        print("Nenhum cliente cadastrado. Cadastre um cliente antes de devolver uma revista.")
-        input("\nPressione ENTER para voltar ao menu.")
+    for i, c in enumerate(clientes, start=1):
+        print(f"{i}. {c.nome}")
+
+    try:
+        indice_cliente = int(input("\nEscolha o número do cliente: ")) - 1
+        cliente = clientes[indice_cliente]
+    except (ValueError, IndexError):
+        print("Opção inválida.")
         return
 
-    # 2️⃣ Solicita o nome do cliente
-    nome_cliente = input("Digite o nome do cliente: ").strip()
-    cliente_encontrado = None
-
-    for c in clientes:
-        if c.nome.lower() == nome_cliente.lower():
-            cliente_encontrado = c
-            break
-
-    if not cliente_encontrado:
-        print("Cliente não encontrado. Verifique o nome ou cadastre o cliente.")
-        input("\nPressione ENTER para voltar ao menu.")
+    if not cliente._Cliente__itens_alugados:
+        print("Esse cliente não possui revistas alugadas.")
         return
 
-    # 3️⃣ Busca uma revista que esteja alugada
-    revista_alugada = None
-    for r in revistas:
-        if not r.disponivel:  # revista alugada
-            revista_alugada = r
-            break
+    print("\nRevistas alugadas:")
+    for i, item in enumerate(cliente._Cliente__itens_alugados, start=1):
+        print(f"{i}. {item.titulo}")
 
-    if not revista_alugada:
-        print("Nenhuma revista está alugada no momento.")
-        input("\nPressione ENTER para voltar ao menu.")
+    try:
+        indice_item = int(input("\nEscolha o número da revista para devolver: ")) - 1
+        revista = cliente._Cliente__itens_alugados[indice_item]
+    except (ValueError, IndexError):
+        print("Opção inválida.")
         return
 
-    # 4️⃣ Mostra informações
-    print("\nInformações do Cliente:")
-    print(cliente_encontrado.mostrar_informacoes_cliente())
+    revista.status_devolver()
+    cliente.devolver_item(revista)
 
-    print("\nRevista Alugada:")
-    print(revista_alugada.mostrar_informacoes())
+    print(f"\nRevista '{revista.titulo}' devolvida com sucesso por {cliente.nome}.")
 
-    # 5️⃣ Confirma devolução
-    confirmar = input("\nDeseja devolver esta revista? (s/n): ").strip().lower()
-    if confirmar == 's':
-        revista_alugada.status_devolver()
-        print("\n✅ Revista devolvida com sucesso!")
-    else:
-        print("\nOperação cancelada. Revista continua alugada.")
 
-    input("\nPressione ENTER para voltar ao menu.")
-    
-# ===== Menu interativo =====
+# MENU PRINCIPAL
 def menu_interativo():
+    """Exibe o menu principal do sistema e gerencia as opções."""
     while True:
         try:
+            # int() converte a entrada em número inteiro
             menu = int(input("""\n
 ---------------------------------                         
 MENU DE OPÇÕES:
@@ -349,9 +340,9 @@ MENU DE OPÇÕES:
 Digite sua opção: """))
         except ValueError:
             print("Digite apenas valores numéricos!")
-            continue
+            continue  # Volta ao início do loop
 
-        # ===== AÇÕES DO MENU =====
+        # Estrutura condicional de seleção (menu)
         if menu == 0:
             print("Saindo do sistema...")
             break
@@ -362,11 +353,11 @@ Digite sua opção: """))
         elif menu == 3:
             cadastrar_cliente()
         elif menu == 4:
-            alugar_livro() 
+            alugar_livro()
         elif menu == 5:
             alugar_revista()
         elif menu == 6:
-            devolver_livro()  
+            devolver_livro()
         elif menu == 7:
             devolver_revista()
         elif menu == 8:
@@ -378,6 +369,6 @@ Digite sua opção: """))
         else:
             print("Opção inválida! Tente novamente.")
 
-# ===== Inicia o programa =====
-menu_interativo()
 
+# INÍCIO DO PROGRAMA
+menu_interativo()
