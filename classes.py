@@ -165,7 +165,7 @@ class Pessoa:
 
 
 # ==========================
-# Classe Bibliotecário
+# Classe Bibliotecárioo
 # ==========================
 class Bibliotecario(Pessoa):
     def __init__(self, nome, cpf, telefone, cnpj):
