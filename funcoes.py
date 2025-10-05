@@ -145,11 +145,11 @@ Digite sua opção: """))
         elif menu == 4:
             pass  # alugar livros
         elif menu == 5:
-            alugar_revista()
+            pass
         elif menu == 6:
             pass
         elif menu == 7:
-            devolver_revista()
+            pass
         elif menu == 8:
             listar_livros()
         elif menu == 9:
