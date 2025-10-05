@@ -254,11 +254,11 @@ Digite sua opção: """))
         elif menu == 4:
             alugar_livro()  # alugar livros
         elif menu == 5:
-            pass  # alugar revistas
+            alugar_revista()
         elif menu == 6:
             devolver_livro()  # devolver livros
         elif menu == 7:
-            pass  # devolver revistas
+            devolver_revista()
         elif menu == 8:
             listar_livros()
         elif menu == 9:
