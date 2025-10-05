@@ -194,6 +194,7 @@ class Cliente(Pessoa):
     def __init__(self, nome, cpf, telefone, id_cliente):
         super().__init__(nome, cpf, telefone)
         self.id_cliente = id_cliente
+        self.__itens_alugados = []
 
     @property
     def id_cliente(self):
@@ -207,4 +208,18 @@ class Cliente(Pessoa):
             raise ValueError("ID do cliente deve ser um número inteiro positivo")
 
     def mostrar_informacoes_cliente(self):
-        return f"INFORMAÇÕES CLIENTE\n{super().mostrar_informacoes()} | Cadastro: {self.__id_cliente}"
+        info = f'INFORMAÇÕES CLIENTE\n{super().mostrar_informacoes()} | Cadastro: {self.__id_cliente}'
+        if self.__itens_alugados:
+            info += '\n Itens Alugados:'
+            for item in self.__itens_alugados:
+                info += f'\n - {item.titulo}'
+        else:
+            info += '\n Nenhum item alugado no momento.'
+        return info
+    
+    def alugar_item(self, item):
+        self.__itens_alugados.append(item)
+
+    def devolver_item(self, item):
+        if item in self.__itens_alugados:
+            self.__itens_alugados.remove(item)

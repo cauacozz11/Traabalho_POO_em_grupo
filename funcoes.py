@@ -107,6 +107,115 @@ def listar_revistas():
             print(f"{i}. {r.mostrar_informacoes()}")       
     input("\nPressione ENTER para voltar ao menu...") 
 
+def alugar_livro():
+    print('\n--- Aluguel de Livro ---')
+
+    if not clientes:
+        print('\nERRO: Nenhum cliente cadastrado no sistema. ')
+        print('Por favor, cadastre um cliente para realizar um aluguel.')
+        input('Pressione ENTER para voltar ao menu.')
+        return
+            
+    nome_cliente = input('Digite o nome completo do cliente: ').strip()
+    cliente_encontrado = None
+    for cliente in clientes:
+        if cliente.nome.lower() == nome_cliente.lower():
+            cliente_encontrado = cliente
+            break
+    if not cliente_encontrado:
+        print(f'\nERRO: Cliente com o nome "{nome_cliente}" não foi encontrado.')
+        input('Pressione ENTER para voltar ao menu...')
+        return
+        
+    livro_encontrado = None
+    while True:
+        titulo_livro = input(f'Digite o título do livro que {cliente_encontrado.nome} deseja alugar: ')
+        for livro in livros:
+            if livro.titulo.lower() == titulo_livro.lower():
+                livro_encontrado = livro
+                break
+        if livro_encontrado:
+            break
+        else:
+            print(f'\nERRO: Livro com o título {titulo_livro} não foi encontrado.')
+
+            tentar_novamente = input('Deseja tentar de novo? [S/N]: ')
+            if tentar_novamente.lower()[0] != 's':
+                print('Busca cancelada. Voltando ao menu.')
+                return
+    if livro_encontrado.status_emprestar():
+        cliente_encontrado.alugar_item(livro_encontrado)
+
+        print('\n========================================')
+        print(" Aluguel realizado com sucesso!")
+        print(f'  Cliente: {cliente_encontrado.nome}')
+        print(f'  Livro: {livro_encontrado.titulo}')
+        print('========================================')
+    else:
+        print(f'\nERRO: O livro {livro_encontrado.titulo} já está alugado.')
+
+    input('Pressione ENTER para retornar ao menu...')
+
+def devolver_livro():
+    print('\n     Devolução de Livro')
+
+    if not clientes:
+        print('\nERRO: Nenhum cliente cadastrado no sistema.')
+        input('Pressione ENTER para voltar ao menu...')
+        return
+    
+    nome_cliente = input('Digite o nome completo do cliente que está devolvendo o livro: ').strip()
+    cliente_encontrado = None
+    for cliente in clientes:
+        if cliente.nome.lower() == nome_cliente.lower():
+            cliente_encontrado = cliente
+            break
+    if not cliente_encontrado:
+        print(f'\nERRO: Cliente com o nome {nome_cliente} não foi encontrado.')
+        input('Pressione ENTER para voltar ao menu...')
+        return
+
+    if not cliente_encontrado._Cliente__itens_alugados:
+        print(f'\nAVISO: {cliente_encontrado.nome} não possui nenhum item alugado no momento.')
+        input('Pressione ENTER para voltar ao menu...')  
+        return
+
+    print(f'\nItens atualmente alugados por {cliente_encontrado.nome}: ')
+    livros_do_cliente = []
+    for item in cliente_encontrado._Cliente__itens_alugados:
+        if isinstance(item, Livro):
+            print(f'   Título: {item.titulo}')  
+            livros_do_cliente.append(item)
+    if not livros_do_cliente:
+        print(f'\nAVISO: {cliente_encontrado.nome} não possui nenhum livro alugado no momento. ')
+        input('Pressione ENTER para voltar ao menu...')
+        return
+
+    livro_para_devolver = None
+    while True:
+        titulo_devolucao = input('\nDigite o título do livro a ser devolvido ["n" para cancelar]: ').strip()
+        if titulo_devolucao.lower()[0] == 'n':
+            print('Operação cancelada.') 
+            return
+        for livro in livros_do_cliente:
+            if livro.titulo.lower() == titulo_devolucao.lower():
+                livro_para_devolver = livro
+                break
+        if livro_para_devolver:
+            break
+        else:
+            print(f'\nERRO: Título não encontrado na lista de aluguéis de {cliente_encontrado.nome}. Tente novamente.')
+
+    cliente_encontrado.devolver_item(livro_para_devolver)
+    livro_para_devolver.status_devolver()
+    print('\n========================================')
+    print("  Devolução realizada com sucesso!")
+    print(f'  Cliente: {cliente_encontrado.nome}')
+    print(f'  Livro: {livro_para_devolver.titulo}')
+    print('========================================')
+    input('\nPressione ENTER para retornar ao menu...')
+
+
 # ===== Menu interativo =====
 def menu_interativo():
     while True:
@@ -143,11 +252,11 @@ Digite sua opção: """))
         elif menu == 3:
             cadastrar_cliente()
         elif menu == 4:
-            pass  # alugar livros
+            alugar_livro()  # alugar livros
         elif menu == 5:
             pass  # alugar revistas
         elif menu == 6:
-            pass  # devolver livros
+            devolver_livro()  # devolver livros
         elif menu == 7:
             pass  # devolver revistas
         elif menu == 8:
