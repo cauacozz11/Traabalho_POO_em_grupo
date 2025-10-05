@@ -214,6 +214,118 @@ def devolver_livro():
     print(f'  Livro: {livro_para_devolver.titulo}')
     print('========================================')
     input('\nPressione ENTER para retornar ao menu...')
+    
+    
+    
+def alugar_revista():
+    print("\n--- Aluguel de Revista ---")
+
+    # 1️⃣ Verifica se há clientes cadastrados
+    if not clientes:
+        print("Nenhum cliente cadastrado. Cadastre um cliente antes de alugar uma revista.")
+        input("\nPressione ENTER para voltar ao menu.")
+        return
+
+    # 2️⃣ Solicita nome do cliente
+    nome_cliente = input("Digite o nome do cliente: ").strip()
+    cliente_encontrado = None
+
+    for c in clientes:
+        if c.nome.lower() == nome_cliente.lower():
+            cliente_encontrado = c
+            break
+
+    if not cliente_encontrado:
+        print("Cliente não encontrado. Verifique o nome ou cadastre o cliente.")
+        input("\nPressione ENTER para voltar ao menu.")
+        return
+
+    # 3️⃣ Solicita título da revista
+    while True:
+        titulo_revista = input("Digite o título da revista que deseja alugar: ").strip()
+        revista_encontrada = None
+
+        for r in revistas:
+            if r.titulo.lower() == titulo_revista.lower():
+                revista_encontrada = r
+                break
+
+        if not revista_encontrada:
+            opc = input("Revista não encontrada. Deseja tentar novamente? (s/n): ")
+            if opc.lower() != 's':
+                print("Voltando ao menu...")
+                return
+            continue  # volta e pergunta novamente
+
+        # 4️⃣ Verifica disponibilidade
+        if not revista_encontrada.disponivel:
+            print("Desculpe, essa revista já está alugada.")
+            input("\nPressione ENTER para voltar ao menu.")
+            return
+
+        # 5️⃣ Realiza o aluguel
+        revista_encontrada.status_emprestar()
+
+        print("\n✅ Aluguel realizado com sucesso!")
+        print(f"Cliente: {cliente_encontrado.nome}")
+        print(f"Revista: {revista_encontrada.titulo}")
+
+        input("\nPressione ENTER para voltar ao menu.")
+        break
+
+
+def devolver_revista():
+    print("\n--- Devolução de Revista ---")
+
+    # 1️⃣ Verifica se há clientes cadastrados
+    if not clientes:
+        print("Nenhum cliente cadastrado. Cadastre um cliente antes de devolver uma revista.")
+        input("\nPressione ENTER para voltar ao menu.")
+        return
+
+    # 2️⃣ Solicita o nome do cliente
+    nome_cliente = input("Digite o nome do cliente: ").strip()
+    cliente_encontrado = None
+
+    for c in clientes:
+        if c.nome.lower() == nome_cliente.lower():
+            cliente_encontrado = c
+            break
+
+    if not cliente_encontrado:
+        print("Cliente não encontrado. Verifique o nome ou cadastre o cliente.")
+        input("\nPressione ENTER para voltar ao menu.")
+        return
+
+    # 3️⃣ Busca uma revista que esteja alugada
+    revista_alugada = None
+    for r in revistas:
+        if not r.disponivel:  # revista alugada
+            revista_alugada = r
+            break
+
+    if not revista_alugada:
+        print("Nenhuma revista está alugada no momento.")
+        input("\nPressione ENTER para voltar ao menu.")
+        return
+
+    # 4️⃣ Mostra informações
+    print("\nInformações do Cliente:")
+    print(cliente_encontrado.mostrar_informacoes_cliente())
+
+    print("\nRevista Alugada:")
+    print(revista_alugada.mostrar_informacoes())
+
+    # 5️⃣ Confirma devolução
+    confirmar = input("\nDeseja devolver esta revista? (s/n): ").strip().lower()
+    if confirmar == 's':
+        revista_alugada.status_devolver()
+        print("\n✅ Revista devolvida com sucesso!")
+    else:
+        print("\nOperação cancelada. Revista continua alugada.")
+
+    input("\nPressione ENTER para voltar ao menu.")
+    
 
 
 # ===== Menu interativo =====
