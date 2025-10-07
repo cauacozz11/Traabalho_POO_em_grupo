@@ -60,8 +60,6 @@ class Pessoa:
         return f"Nome: {self.__nome} | CPF: {self.__cpf} | Telefone: {self.__telefone}"
 
 
-
-
 # CLASSE: CLIENTE
 # Herda de Pessoa e representa os usuários que alugam livros/revistas.
 class Cliente(Pessoa):
