@@ -36,7 +36,7 @@ def cadastrar_livro():
         # Categoria (aceita apenas letras e espaços)
         while True:
             categoria = input("Categoria: ")
-            if categoria.replace(" ", "").isalpha():
+            if categoria.replace(" ", "").isalpha() and categoria != "":
                 break
             else:
                 print("A categoria deve conter apenas letras. Tente novamente.")
