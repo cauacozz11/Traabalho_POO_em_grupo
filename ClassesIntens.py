@@ -22,7 +22,7 @@ class ItensBiblioteca:
     def categoria(self, valor):
         # isinstance() verifica o tipo da variável
         # str.strip() remove espaços extras
-        if isinstance(valor, str) and valor.strip():
+        if isinstance(valor, str) and valor.replace(" ", "").isalpha():
             self.__categoria = valor
         else:
             raise ValueError("Categoria deve ser uma string não vazia")
@@ -95,7 +95,7 @@ class Livro(ItensBiblioteca):
     @autor.setter
     def autor(self, valor):
         # Valida se o nome do autor é uma string válida
-        if isinstance(valor, str) and valor.strip():
+        if isinstance(valor, str) and valor.replace(" ", "").isalpha():
             self.__autor = valor
         else:
             raise ValueError("Autor deve ser uma string não vazia")

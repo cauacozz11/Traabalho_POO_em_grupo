@@ -2,7 +2,7 @@
 # IMPORTAÇÕES
 import random                              # Usado para gerar números aleatórios
 from ClassesIntens import Livro, Revista   # Importa classes de itens da biblioteca
-from ClassesPessoa import Bibliotecario, Cliente  # Importa classes de pessoas
+from ClassesPessoa import Cliente  # Importa classes de pessoas
 
 
 # LISTAS GLOBAIS
@@ -32,23 +32,37 @@ def cadastrar_livro():
     """Permite o cadastro manual de um novo livro."""
     while True:
         print("\n--- Cadastro de Livro ---")
-        categoria = input("Categoria: ")
+
+        # Categoria (aceita apenas letras e espaços)
+        while True:
+            categoria = input("Categoria: ")
+            if categoria.replace(" ", "").isalpha():
+                break
+            else:
+                print("A categoria deve conter apenas letras. Tente novamente.")
+
         titulo = input("Título: ")
         editora = input("Editora: ")
-        autor = input("Autor: ")
 
+        # Autor (aceita apenas letras e espaços)
+        while True:
+            autor = input("Autor: ")
+            if autor.replace(" ", "").isalpha():
+                break
+            else:
+                print("O nome do autor deve conter apenas letras. Tente novamente.")
         try:
             novo_livro = Livro(categoria, titulo, editora, autor)
             livros.append(novo_livro)
             print("\nLivro cadastrado com sucesso!")
             print(novo_livro.mostrar_informacoes())
 
-        except ValueError as e:   # Captura erros de validação (ex: campo vazio)
+        except ValueError as e:
             print("Erro ao cadastrar livro:", e)
             continue
 
         opc = input("\nDeseja cadastrar outro livro? (s/n): ")
-        if opc.lower() != 's':    # lower() converte para minúsculo
+        if opc.lower() != 's':  # .lower() converte para minúsculas (aceita S ou s)
             break
 
 
@@ -56,15 +70,28 @@ def cadastrar_revista():
     """Permite cadastrar uma nova revista."""
     while True:
         print("\n--- Cadastro de Revista ---")
-        categoria = input("Categoria: ")
+        #categoria = input("Categoria: ")
+        #titulo = input("Título: ")
+        #editora = input("Editora: ")
+        
+        while True:
+            categoria = input("Categoria: ")
+            if categoria.replace(" ", "").isalpha():
+                break
+            else:
+                print("A categoria deve conter apenas letras. Tente novamente.")
+                
         titulo = input("Título: ")
         editora = input("Editora: ")
-
-        # Valida a entrada da edição com try/except
+        
+         # Edição (deve ser um número inteiro positivo)
         try:
             edicao = int(input("Edição (número inteiro positivo): "))
+            if edicao <= 0:
+                print("A edição deve ser maior que zero.")
+                continue
         except ValueError:
-            print("Edição deve ser um número inteiro.")
+            print("Edição deve ser um número inteiro válido.")
             continue
 
         try:
@@ -76,6 +103,8 @@ def cadastrar_revista():
         except ValueError as e:
             print("Erro ao cadastrar revista:", e)
             continue
+
+
 
         opc = input("\nDeseja cadastrar outra revista? (s/n): ")
         if opc.lower() != 's':

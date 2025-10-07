@@ -61,32 +61,6 @@ class Pessoa:
 
 
 
-# CLASSE: BIBLIOTECÁRIO
-# Herda da classe Pessoa e adiciona o CNPJ.
-# Representa o funcionário da biblioteca.
-class Bibliotecario(Pessoa):
-    def __init__(self, nome, cpf, telefone, cnpj):
-        # super() chama o construtor da classe Pessoa
-        super().__init__(nome, cpf, telefone)
-        self.cnpj = cnpj  # Novo atributo exclusivo do bibliotecário
-
-    @property
-    def cnpj(self):
-        return self.__cnpj
-
-    @cnpj.setter
-    def cnpj(self, valor):
-        # Verifica se o CNPJ tem exatamente 14 dígitos numéricos
-        if isinstance(valor, str) and valor.isdigit() and len(valor) == 14:
-            self.__cnpj = valor
-        else:
-            raise ValueError("CNPJ deve conter exatamente 14 dígitos numéricos")
-
-    # Mostra todas as informações do bibliotecário
-    def mostrar_informacoes(self):
-        return f"INFORMAÇÕES BIBLIOTECÁRIO\n{super().mostrar_informacoes()} | CNPJ: {self.__cnpj}"
-
-
 
 # CLASSE: CLIENTE
 # Herda de Pessoa e representa os usuários que alugam livros/revistas.
