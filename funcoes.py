@@ -36,14 +36,24 @@ def cadastrar_livro():
         # Categoria (aceita apenas letras e espaços)
         while True:
             categoria = input("Categoria: ")
-            if categoria.replace(" ", "").isalpha() and categoria != "":
+            if categoria.replace(" ", "").isalpha():
                 break
             else:
                 print("A categoria deve conter apenas letras. Tente novamente.")
-
-        titulo = input("Título: ")
-        editora = input("Editora: ")
-
+        while True:
+            titulo = input("Título: ")
+            if categoria.replace(" ", "").isalnum():
+                break
+            else:
+                print("O título deve conter apenas letras ou números. Tente novamente.")
+        
+        while True:
+            editora = input("Editora: ")
+            if editora.replace(" ", "").isalnum():
+                break
+            else:
+                print("A editora conter apenas letras ou números. Tente novamente.")
+        
         # Autor (aceita apenas letras e espaços)
         while True:
             autor = input("Autor: ")
@@ -80,9 +90,20 @@ def cadastrar_revista():
                 break
             else:
                 print("A categoria deve conter apenas letras. Tente novamente.")
-                
-        titulo = input("Título: ")
-        editora = input("Editora: ")
+        while True:
+            titulo = input("Título: ")
+            if titulo.replace(" ", "").isalnum():
+                break
+            else:
+                print("O título deve conter apenas letras ou números. Tente novamente.") 
+                       
+        while True:
+            editora = input("Editora: ")
+            if editora.replace(" ", "").isalnum():
+                break
+            else:
+                print("A editora deve conter apenas letras ou números. Tente novamente.")
+
         
          # Edição (deve ser um número inteiro positivo)
         try:
