@@ -1,8 +1,8 @@
 
 # IMPORTAÇÕES
 import random                              # Usado para gerar números aleatórios
-from ClassesIntens import Livro, Revista   # Importa classes de itens da biblioteca
-from ClassesPessoa import Cliente  # Importa classes de pessoas
+from models.item import Livro, Revista   # Importa classes de itens da biblioteca
+from models.pessoa import Cliente  # Importa classes de pessoas
 
 
 # LISTAS GLOBAIS
