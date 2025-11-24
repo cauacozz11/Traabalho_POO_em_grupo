@@ -67,6 +67,20 @@ class BancoDeDados:
             );
             """
 
+        sql_emprestimos = """
+            CREATE TABLE IF NOT EXISTS emprestimos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_pessoa INTEGER NOT NULL,
+            id_livro INTEGER,
+            id_revista INTEGER,
+            data_emprestimo TEXT NOT NULL,
+            data_devolucao TEXT,
+            FOREIGN KEY(id_pessoa) REFERENCES pessoas(id),
+            FOREIGN KEY(id_livro) REFERENCES livros(id),
+            FOREIGN KEY(id_revista) REFERENCES revistas(id)
+        );
+        """
+            
             try:
                 # Executamos as 3 ordens de criação
                 self.cursor.execute(sql_pessoas)
