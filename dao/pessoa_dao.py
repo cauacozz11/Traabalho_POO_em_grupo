@@ -2,7 +2,7 @@ from database.conexao import BancoDeDados
 from models.pessoa import Pessoa
 
 
-class PessoaDAO:
+class pessoaDAO:
     def __init__(self) :
         self.banco = BancoDeDados()
  

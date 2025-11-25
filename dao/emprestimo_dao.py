@@ -16,18 +16,18 @@ class emprestimoDAO:
 
         item_disponivel = False
 
-        if id_revista:
-            self.banco.cursor.execute("SELECT is_disponivel FROM revistas WHERE id = ?", (id_revista,))
-            resultado = self.banco.cursor.fetchone()
-            if resultado and resultado[0] == 1:
-                item_disponivel = True
-
-        elif id_livro:
+        if id_livro:
             self.banco.cursor.execute("SELECT is_disponivel FROM livros WHERE id = ?", (id_livro,))
             resultado = self.banco.cursor.fetchone()
             if resultado and resultado[0] == 1:
                 item_disponivel = True
 
+        elif id_revista:
+            self.banco.cursor.execute("SELECT is_disponivel FROM revistas WHERE id = ?", (id_revista,))
+            resultado = self.banco.cursor.fetchone()
+            if resultado and resultado[0] == 1:
+                item_disponivel = True
+                
 
         if not item_disponivel:
             print('Erro: Esse item já está alugado ou não existe!')
@@ -38,7 +38,7 @@ class emprestimoDAO:
 
         sql = """
         INSERT INTO emprestimos
-        (id_pessoa, id_livro, id_revista, data_emprestimo, data_devoulucao)
+        (id_pessoa, id_livro, id_revista, data_emprestimo, data_devolucao)
         VALUES (?,?,?,?,?)
         """  
 
