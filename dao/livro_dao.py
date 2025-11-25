@@ -45,7 +45,21 @@ class livroDAO:
             print(f"Erro ao salvar livro {erro}")
             
         finally:
-            self.banco.desconectar()            
+            self.banco.desconectar()
+            
+           
+    def listar_todos(self):
+        self.banco.conectar()
+        
+        try:
+            self.banco.cursor.execute("SELECT * FROM livros") 
+            lista = self.banco.cursor.fetchall()
+            return lista
+        except Exception as erro:
+            print(erro)
+            return []
+        finally:
+            self.banco.desconectar()             
         
         
         

@@ -61,3 +61,36 @@ class emprestimoDAO:
 
         finally:
             self.banco.desconectar()
+            
+            
+            
+    def finalizar_emprestimo(self, id_emprestimo):
+        self.banco.conectar()
+            
+        try:
+            sql_busca = "SELECT id_livro, id_revista FROM emprestimos WHERE id = ?"
+            self.banco.cursor.execute(sql_busca, (id_emprestimo,))
+            resultado = self.banco.cursor.fetchone()
+                
+            id_livro = resultado[0]
+            id_revista = resultado[1]
+                
+            if id_livro:
+                sql_liberar = "UPDATE livros SET is_disponivel = 1 WHERE id = ?"
+                self.banco.cursor.execute(sql_liberar, (id_livro,))
+                    
+            elif id_revista:
+                sql_liberar = "UPDATE revistas SET is_disponivel = 1 WHERE id = ?"
+                self.banco.cursor.execute(sql_liberar, (id_revista,))
+            
+            self.banco.conexao.commit()
+            print(f"Empréstimo {id_emprestimo} finalizado! Item devolvido à estante.")
+            return True
+            
+        except Exception as erro:
+            self.banco.conexao.rollback()
+            print(f"Erro ao devolver: {erro}")
+            return False
+                
+        finally:
+            self.banco.desconectar()
