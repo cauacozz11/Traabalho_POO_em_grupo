@@ -77,11 +77,16 @@ class emprestimoDAO:
                 
             if id_livro:
                 sql_liberar = "UPDATE livros SET is_disponivel = 1 WHERE id = ?"
+                sql_finalizar = "DELETE FROM emprestimos WHERE id = ?"
                 self.banco.cursor.execute(sql_liberar, (id_livro,))
+                self.banco.cursor.execute(sql_finalizar, (id_emprestimo,))
+
                     
             elif id_revista:
                 sql_liberar = "UPDATE revistas SET is_disponivel = 1 WHERE id = ?"
+                sql_finalizar = "DELETE FROM emprestimos WHERE id = ?"
                 self.banco.cursor.execute(sql_liberar, (id_revista,))
+                self.banco.cursor.execute(sql_finalizar, (id_emprestimo,))
             
             self.banco.conexao.commit()
             print(f"Empréstimo {id_emprestimo} finalizado! Item devolvido à estante.")

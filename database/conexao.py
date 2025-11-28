@@ -81,15 +81,31 @@ class BancoDeDados:
             );
             """
             
+            sql_historico = """
+            CREATE TABLE IF NOT EXISTS historico_emprestimos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_pessoa INTEGER NOT NULL,
+            id_livro INTEGER,
+            id_revista INTEGER,
+            data_emprestimo TEXT NOT NULL,
+            data_devolucao TEXT,
+            FOREIGN KEY(id_pessoa) REFERENCES pessoas(id),
+            FOREIGN KEY(id_livro) REFERENCES livros(id),
+            FOREIGN KEY(id_revista) REFERENCES revistas(id) 
+            )
+            
+            """
+            
             try:
                 # Executamos as 3 ordens de criação
                 self.cursor.execute(sql_pessoas)
                 self.cursor.execute(sql_livros)
                 self.cursor.execute(sql_revistas)
                 self.cursor.execute(sql_emprestimos)
+                self.cursor.execute(sql_historico)
                 
                 self.conexao.commit()
-                print("Tabelas (Pessoas, Livros, Revistas, Empréstimo) verificadas/criadas com sucesso!")
+                print("Tabelas (Pessoas, Livros, Revistas, Empréstimo, Histórico de Empréstimos) verificadas/criadas com sucesso!")
                 
             except sqlite3.Error as erro:
                 print(f"Erro ao criar tabelas: {erro}")

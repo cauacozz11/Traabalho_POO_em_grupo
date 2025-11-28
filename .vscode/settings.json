@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Meu banco Projeto",
+            "database": "${workspaceFolder:Traabalho_POO_em_grupo}/meu_banco.db"
+        }
+    ]
+}
