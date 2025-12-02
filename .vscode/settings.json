@@ -3,8 +3,9 @@
         {
             "previewLimit": 50,
             "driver": "SQLite",
-            "name": "Meu banco Projeto",
+            "name": "meu banco",
             "database": "${workspaceFolder:Traabalho_POO_em_grupo}/meu_banco.db"
         }
-    ]
+    ],
+    "sqltools.useNodeRuntime": true
 }
